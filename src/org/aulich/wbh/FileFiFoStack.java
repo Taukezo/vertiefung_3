@@ -4,13 +4,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 
-public class FileQue {
+public class FileFiFoStack {
     private static final String[] extensions = {"txt", "doc", "docx", "pdf"};
     Queue<File> fileQueue = new LinkedList<File>();
     Queue<File> dirQueue = new LinkedList<File>();
 
 
-    public FileQue(File basePoint) throws FileNotFoundException {
+    public FileFiFoStack(File basePoint) throws FileNotFoundException {
         if (basePoint.exists() && basePoint.isDirectory()) {
             if (basePoint.isDirectory()) {
                 dirQueue.add(basePoint);
