@@ -53,7 +53,7 @@ public class Configuration {
             xStream.addPermission(PrimitiveTypePermission.PRIMITIVES);
             xStream.allowTypeHierarchy(Collection.class);
             xStream.allowTypesByWildcard(
-                    new String[] {"org.aulich.wbh.configuration.**"});
+                    new String[] {"org.aulich.wbh.vertiefung_3.configuration.**"});
             xStream.processAnnotations(ConfigurationModel.class);
             configurationModel =
                     (ConfigurationModel) xStream.fromXML(configurationFile);
@@ -94,5 +94,13 @@ public class Configuration {
         writer = null;
         outputStream = null;
         return true;
+    }
+
+    public ConfigurationModel getConfigurationModel() {
+        return configurationModel;
+    }
+
+    public void setConfigurationModel(ConfigurationModel configurationModel) {
+        this.configurationModel = configurationModel;
     }
 }
