@@ -7,7 +7,7 @@ public class Main {
     public static void main(String[] args) {
         File f;
         try {
-            FileQue myQue = new FileQue(new File("C:\\WBH-ExportDokumente"));
+            FileQue myQue = new FileQue(new File("C:\\WBH-ExportDokumente\\urn_multiarchive_item_DMS_993\\Content_Files\\urn%3Amultiarchive%3Acontent%3ADMS%3A993-997#1-2-2012-04-02 Rechnung Kastration und Impfung Kaninchen Kathis (Knuffel).pdf"));
             int i = 0;
             while ((f = myQue.getNext()) != null) {
                 System.out.println(f.getAbsolutePath() + " - " + f.length());
