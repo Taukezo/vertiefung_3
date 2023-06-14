@@ -1,4 +1,4 @@
-import org.aulich.wbh.FileFiFoStack;
+import org.aulich.wbh.vertiefung_3.FileFiFoStack;
 import java.io.File;
 import java.io.FileNotFoundException;
 

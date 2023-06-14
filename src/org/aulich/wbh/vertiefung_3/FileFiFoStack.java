@@ -1,4 +1,4 @@
-package org.aulich.wbh;
+package org.aulich.wbh.vertiefung_3;
 
 import java.io.File;
 import java.io.FileNotFoundException;
