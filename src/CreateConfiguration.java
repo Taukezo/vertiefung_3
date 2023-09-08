@@ -11,6 +11,7 @@ public class CreateConfiguration {
         Configuration config = Configuration.getConfiguration();
         ConfigurationModel cfgModel = new ConfigurationModel();
         cfgModel.setRootPath("C:\\WBH-ExportDokumente\\AULARC_Scanning");
+        cfgModel.setIndexDirectory("C:\\WBH-ExportDokumente\\index");
         config.setConfigurationModel(cfgModel);
         config.save();
     }

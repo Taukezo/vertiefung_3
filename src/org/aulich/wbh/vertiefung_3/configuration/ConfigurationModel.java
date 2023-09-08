@@ -6,6 +6,9 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 public class ConfigurationModel {
     @XStreamAlias("rootpath")
     private String rootPath = "";
+    @XStreamAlias("indexdirectory")
+    private String indexDirectory = "";
+
 
     public String getRootPath() {
         return rootPath;
@@ -13,5 +16,13 @@ public class ConfigurationModel {
 
     public void setRootPath(String rootPath) {
         this.rootPath = rootPath;
+    }
+
+    public String getIndexDirectory() {
+        return indexDirectory;
+    }
+
+    public void setIndexDirectory(String indexDirectory) {
+        this.indexDirectory = indexDirectory;
     }
 }
