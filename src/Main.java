@@ -1,15 +1,18 @@
+import org.apache.lucene.document.*;
+import org.apache.lucene.index.IndexWriter;
+import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.aulich.wbh.vertiefung_3.FileFiFoStack;
 import org.aulich.wbh.vertiefung_3.configuration.Configuration;
-
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
-
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 import org.aulich.wbh.vertiefung_3.configuration.ConfigurationModel;
+import org.aulich.wbh.vertiefung_3.utils.FieldName;
 import org.aulich.wbh.vertiefung_3.utils.FileUtils;
 
 public class Main {
@@ -29,21 +32,36 @@ public class Main {
         }
 
         // Create a new index
-        Directory indexDirectory =
+        Directory index =
                 FSDirectory.open(indexDir.toPath());
+        IndexWriterConfig indexConfig = new IndexWriterConfig();
+        IndexWriter writer = new IndexWriter(index, indexConfig);
 
         // Go trough the file-system ...
+        int i = 0;
         try {
             FileFiFoStack myQue = new FileFiFoStack(new File(rootPath));
-            int i = 0;
             while ((f = myQue.getNext()) != null) {
-                //logger.debug(f.getAbsolutePath() + " - " + f.length());
+                Document doc = new Document();
+                doc.add(new StringField(FieldName.PATH, f.getAbsolutePath(), Field.Store.YES));
+                doc.add(new StringField(FieldName.NAME, f.getName(), Field.Store.YES));
+                doc.add(new LongPoint(FieldName.SIZE, f.length()));
+                doc.add(new StringField(FieldName.SIZE, String.valueOf(f.length()), Field.Store.YES));
+                doc.add(new StringField(FieldName.TYPE, FileUtils.getExtensionByStringHandling(f), Field.Store.YES));
+                // Fulltext-Index PARSER!!!
+                doc.add(new TextField(FieldName.FULLTEXT, new FileReader(f)));
+                writer.addDocument(doc);
                 i++;
+                if (i > 99) {
+                    break;
+                }
             }
-            logger.debug("That's it, number of files: " + i);
         } catch (FileNotFoundException e) {
-            logger.error("So geht das nicht: " + e.getMessage());
+            logger.error("File not found or accessible: " + e.getMessage());
         }
-
+        logger.debug("That's it, number of files: " + i);
+        writer.close();
+        index.close();
+        logger.debug("Program stopped");
     }
 }
