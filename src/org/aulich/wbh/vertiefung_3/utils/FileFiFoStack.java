@@ -1,4 +1,4 @@
-package org.aulich.wbh.vertiefung_3;
+package org.aulich.wbh.vertiefung_3.utils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -12,7 +12,7 @@ import java.util.Queue;
  * @author Thomas Aulich
  */
 public class FileFiFoStack {
-    private static final String[] extensions = {"txt", "doc", "docx", "pdf"};
+    private static final String[] extensions = {"txt", "doc", "docx", "pdf", "xls", "xlsx", "xml", "eml", "msg"};
     Queue<File> fileQueue = new LinkedList<File>();
     Queue<File> dirQueue = new LinkedList<File>();
 

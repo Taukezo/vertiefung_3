@@ -1,3 +1,5 @@
+package org.aulich.wbh.vertiefung_3.utils;
+
 import org.aulich.wbh.vertiefung_3.configuration.Configuration;
 import org.aulich.wbh.vertiefung_3.configuration.ConfigurationModel;
 

@@ -1,23 +1,21 @@
+package org.aulich.wbh.vertiefung_3.programs;
 import org.apache.lucene.document.*;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.tika.exception.TikaException;
-import org.aulich.wbh.vertiefung_3.FileFiFoStack;
 import org.aulich.wbh.vertiefung_3.configuration.Configuration;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 import org.aulich.wbh.vertiefung_3.configuration.ConfigurationModel;
-import org.aulich.wbh.vertiefung_3.utils.FieldName;
-import org.aulich.wbh.vertiefung_3.utils.FileUtils;
-import org.aulich.wbh.vertiefung_3.utils.MetaData;
-import org.aulich.wbh.vertiefung_3.utils.TikaDocument;
+import org.aulich.wbh.vertiefung_3.utils.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-
+import java.time.Duration;
+import java.time.Instant;
 
 /**
  * Header fehlt...
@@ -27,6 +25,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         logger.info("Program starts ... ");
+        Instant start = Instant.now();
         ConfigurationModel cfgM = Configuration.getConfiguration().getConfigurationModel();
         String rootPath = Configuration.getConfiguration().getConfigurationModel().getRootPath();
         File f;
@@ -81,6 +80,7 @@ public class Main {
         logger.debug("That's it, number of files: " + i);
         writer.close();
         index.close();
-        logger.info("Program stopped");
+        Instant stop = Instant.now();
+        logger.info("Program stopped, elapsed time: " + Duration.between(start, stop).toMillis());
     }
 }

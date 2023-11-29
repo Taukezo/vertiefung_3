@@ -16,9 +16,11 @@
         </RollingFile>
     </Appenders>
     <Loggers>
-        <Root level="debug">
+        <Root level="error">
             <AppenderRef ref="Console"/>
-            <AppenderRef ref="rollingFile"/>
         </Root>
+        <Logger name="org.aulich.wbh" additivity="false" level="info">
+            <AppenderRef ref="rollingFile" />
+        </Logger>
     </Loggers>
 </Configuration>
