@@ -13,11 +13,15 @@ import org.aulich.wbh.vertiefung_3.utils.FieldName;
 import org.aulich.wbh.vertiefung_3.utils.FileUtils;
 import org.aulich.wbh.vertiefung_3.utils.MetaData;
 import org.aulich.wbh.vertiefung_3.utils.TikaDocument;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 
+/**
+ * Header fehlt...
+ */
 public class Main {
     private static final Logger logger = LogManager.getLogger(Main.class);
 
@@ -50,12 +54,14 @@ public class Main {
                 doc.add(new LongPoint(FieldName.SIZE, f.length()));
                 doc.add(new StringField(FieldName.SIZE, String.valueOf(f.length()), Field.Store.YES));
                 doc.add(new StringField(FieldName.TYPE, FileUtils.getExtensionByStringHandling(f), Field.Store.YES));
-                // Fulltext-Index PARSER!!!
+                // Fulltext-Index & meta-data
                 TikaDocument tikaDoc = new TikaDocument(f);
                 if (tikaDoc.isAvailable()) {
                     doc.add(new TextField(FieldName.FULLTEXT, tikaDoc.getContentReader()));
                     for (MetaData m : tikaDoc.getMetaData()) {
-                        doc.add(new StringField("tikameta_" + m.key(), m.value(), Field.Store.YES));
+                        if (m.value() != null && !"".equals(m.value())) {
+                            doc.add(new StringField("tikameta_" + m.key(), m.value(), Field.Store.YES));
+                        }
                     }
                 }
 
