@@ -9,6 +9,9 @@ public class ConfigurationModel {
     @XStreamAlias("indexdirectory")
     private String indexDirectory = "";
 
+    @XStreamAlias("numberofcycles")
+    private int numberOfCycles = 0;
+
 
     public String getRootPath() {
         return rootPath;
@@ -24,5 +27,13 @@ public class ConfigurationModel {
 
     public void setIndexDirectory(String indexDirectory) {
         this.indexDirectory = indexDirectory;
+    }
+
+    public int getNumberOfCycles() {
+        return numberOfCycles;
+    }
+
+    public void setNumberOfCycles(int numberOfCycles) {
+        this.numberOfCycles = numberOfCycles;
     }
 }
