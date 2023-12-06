@@ -56,6 +56,10 @@ public class FileFiFoStack {
         return nextFile;
     }
 
+    public synchronized File synchronizedGetNext() {
+        return getNext();
+    }
+
     private void loadDirectory(File dir) {
         File[] files = dir.listFiles();
         for (File file : files) {

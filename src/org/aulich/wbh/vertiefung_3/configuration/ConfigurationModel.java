@@ -8,9 +8,10 @@ public class ConfigurationModel {
     private String rootPath = "";
     @XStreamAlias("indexdirectory")
     private String indexDirectory = "";
-
     @XStreamAlias("numberofcycles")
     private int numberOfCycles = 0;
+    @XStreamAlias("numberofsimplethreads")
+    private int numberOfSimpleThreads = 0;
 
 
     public String getRootPath() {
@@ -35,5 +36,13 @@ public class ConfigurationModel {
 
     public void setNumberOfCycles(int numberOfCycles) {
         this.numberOfCycles = numberOfCycles;
+    }
+
+    public int getNumberOfSimpleThreads() {
+        return numberOfSimpleThreads;
+    }
+
+    public void setNumberOfSimpleThreads(int numberOfSimpleThreads) {
+        this.numberOfSimpleThreads = numberOfSimpleThreads;
     }
 }
