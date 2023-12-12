@@ -35,7 +35,7 @@ public class RunSequential extends BaseProgram implements ProgramInterface{
     @Override
     public void doOnce() throws Exception {
         // Get new IndexWriter and cleanup the filesystem at the configured position
-        IndexWriter writer = this.getIndexWriterNewIndex();
+        IndexWriter indexWriter = this.getIndexWriterNewIndex();
 
         // Create instance to a document helper
         DocumentHandler documentHandler = new DocumentHandler();
@@ -47,10 +47,10 @@ public class RunSequential extends BaseProgram implements ProgramInterface{
         int i = 0;
         File f;
         while ((f = myQueue.getNext()) != null) {
-            writer.addDocument(documentHandler.getDocument(f));
+            indexWriter.addDocument(documentHandler.getDocument(f));
             i++;
         }
         logger.debug("That's it, number of files: " + i);
-        writer.close();
+        indexWriter.close();
     }
 }
