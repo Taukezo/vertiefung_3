@@ -15,7 +15,7 @@ import java.io.IOException;
  * @author Thomas Aulich
  * @version 1.0
  */
-public class RunSequential extends BaseProgram implements ProgramInterface{
+public class RunSequential extends BaseProgram implements ProgramInterface {
     private static final Logger logger = LogManager.getLogger(RunSequential.class);
 
 
@@ -24,12 +24,17 @@ public class RunSequential extends BaseProgram implements ProgramInterface{
 
         RunSequential runSequential = new RunSequential();
         try {
+
             runSequential.doAll();
         } catch (Exception e) {
             logger.error(e);
         }
 
         logger.info("... Program stopped");
+    }
+
+    public RunSequential() {
+        this.getReport().getReportModel().setClassName(this.getClass().getSimpleName());
     }
 
     @Override
@@ -51,6 +56,7 @@ public class RunSequential extends BaseProgram implements ProgramInterface{
             i++;
         }
         logger.debug("That's it, number of files: " + i);
+        this.setNumberOfFiles(myQueue.getNumberOfFiles());
         indexWriter.close();
     }
 }

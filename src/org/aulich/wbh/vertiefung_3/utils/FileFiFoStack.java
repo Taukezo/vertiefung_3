@@ -16,6 +16,8 @@ public class FileFiFoStack {
     Queue<File> fileQueue = new LinkedList<File>();
     Queue<File> dirQueue = new LinkedList<File>();
 
+    int numberOfFiles = 0;
+
 
     /**
      * In the constructor the class needs the entry-point for the stack.
@@ -57,7 +59,11 @@ public class FileFiFoStack {
     }
 
     public synchronized File synchronizedGetNext() {
-        return getNext();
+        File nextFile = getNext();
+        if (nextFile != null) {
+            numberOfFiles++;
+        }
+        return nextFile;
     }
 
     private void loadDirectory(File dir) {
@@ -74,6 +80,10 @@ public class FileFiFoStack {
                 }
             }
         }
+    }
+
+    public int getNumberOfFiles() {
+        return numberOfFiles;
     }
 }
 

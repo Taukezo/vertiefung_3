@@ -3,6 +3,8 @@ package org.aulich.wbh.vertiefung_3.programs.simplethread;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.aulich.wbh.vertiefung_3.indexing.DocumentHandler;
+import org.aulich.wbh.vertiefung_3.programs.BaseProgram;
+import org.aulich.wbh.vertiefung_3.report.ReportThread;
 import org.aulich.wbh.vertiefung_3.utils.FileFiFoStack;
 
 import java.io.File;
@@ -15,16 +17,13 @@ public class SimpleIndexerExtended implements Runnable {
     private DocumentHandler documentHandler = null;
     private SimpleWriter simpleWriter = null;
     private FileFiFoStack fileFiFoStack = null;
-    private boolean shutDown = false;
+    private BaseProgram program;
 
-    public SimpleIndexerExtended(FileFiFoStack fileFiFoStack, SimpleWriter simpleWriter) {
+    public SimpleIndexerExtended(FileFiFoStack fileFiFoStack, SimpleWriter simpleWriter, BaseProgram program) {
         this.fileFiFoStack = fileFiFoStack;
         this.simpleWriter = simpleWriter;
         documentHandler = new DocumentHandler();
-    }
-
-    public void shutdown() {
-        shutDown = true;
+        this.program = program;
     }
 
     @Override
@@ -40,18 +39,9 @@ public class SimpleIndexerExtended implements Runnable {
                 i++;
             }
             logger.info("Number of files processed " + i);
+            program.addReportThread(new ReportThread(Thread.currentThread().getName(), i));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
-        //try {
-        //    waitForShutdown();
-        //} catch (InterruptedException e) {
-        //    logger.error("Shutdown exception", e);
-        //}
     }
-    private synchronized void  waitForShutdown() throws InterruptedException {
-        wait();
-    }
-
 }

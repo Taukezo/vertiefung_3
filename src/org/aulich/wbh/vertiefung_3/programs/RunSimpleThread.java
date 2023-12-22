@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.lucene.index.IndexWriter;
 import org.aulich.wbh.vertiefung_3.programs.simplethread.SimpleIndexer;
+import org.aulich.wbh.vertiefung_3.report.ReportThread;
 import org.aulich.wbh.vertiefung_3.utils.FileFiFoStack;
 
 import java.io.File;
@@ -13,6 +14,10 @@ import java.util.List;
 public class RunSimpleThread extends BaseProgram {
     private static final Logger logger = LogManager.getLogger(RunSimpleThread.class);
     List<Thread> threadList = new ArrayList<Thread>();
+
+    public RunSimpleThread() {
+        this.getReport().getReportModel().setClassName(this.getClass().getSimpleName());
+    }
 
     public static void main(String[] args) {
         logger.info("Program starts ... ");
@@ -36,7 +41,7 @@ public class RunSimpleThread extends BaseProgram {
 
         // Create an instance for all configured Indexers and start them
         for (int x = 0; x < getCfgM().getNumberOfSimpleThreads(); x++) {
-            Thread t = new Thread(new SimpleIndexer(myQueue, indexWriter));
+            Thread t = new Thread(new SimpleIndexer(myQueue, indexWriter, this));
             threadList.add(t);
             t.start();
         }
@@ -45,6 +50,8 @@ public class RunSimpleThread extends BaseProgram {
         for(Thread t : threadList) {
             t.join();
         }
+        //this.addReportThread(1, new ReportThread());
+        this.setNumberOfFiles(myQueue.getNumberOfFiles());
         indexWriter.close();
     }
 }

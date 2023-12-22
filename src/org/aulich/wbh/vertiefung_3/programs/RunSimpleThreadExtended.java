@@ -14,6 +14,9 @@ import java.util.List;
 public class RunSimpleThreadExtended extends BaseProgram {
     private static final Logger logger = LogManager.getLogger(RunSimpleThreadExtended.class);
     List<Thread> threadList = new ArrayList<Thread>();
+    public RunSimpleThreadExtended() {
+        this.getReport().getReportModel().setClassName(this.getClass().getSimpleName());
+    }
 
     public static void main(String[] args) {
         logger.info("Program starts ... ");
@@ -42,7 +45,7 @@ public class RunSimpleThreadExtended extends BaseProgram {
 
         // Create an instance for all configured Indexers and start them
         for (int x = 0; x < getCfgM().getNumberOfSimpleThreads(); x++) {
-            Thread t = new Thread(new SimpleIndexerExtended(myQueue, simpleWriter));
+            Thread t = new Thread(new SimpleIndexerExtended(myQueue, simpleWriter, this));
             threadList.add(t);
             t.start();
         }
@@ -57,6 +60,7 @@ public class RunSimpleThreadExtended extends BaseProgram {
         logger.debug("Try to notify indexer thread");
         simpleWriter.shutDown();
         logger.debug("Notification succeeded");
+        this.setNumberOfFiles(myQueue.getNumberOfFiles());
 
     }
 }

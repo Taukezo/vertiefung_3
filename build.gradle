@@ -24,3 +24,34 @@ dependencies {
     implementation group: 'org.apache.tika', name: 'tika-core', version: '2.9.1'
     implementation group: 'org.apache.tika', name: 'tika-parsers-standard-package', version: '2.9.1'
 }
+
+task copyToLib(type: Copy) {
+    into "$buildDir/libs"
+    from configurations.runtimeClasspath
+}
+
+task copyInstaller1(type: Copy) {
+    from ("Configuration.xml",
+            "log4j2.xml",
+            "start_RunSequential.bat")
+    into "$buildDir/installer"
+}
+
+task copyInstaller2(type: Copy) {
+    dependsOn copyToLib
+    into "$buildDir/installer/libs"
+    from "$buildDir/libs"
+}
+
+task copyInstaller3(type: Copy) {
+    dependsOn copyToLib
+    into "$buildDir/installer/reports"
+    from ("reports")
+}
+task copyInstaller4(type: Copy) {
+    dependsOn copyToLib
+    into "$buildDir/installer/logs"
+    from ("logs")
+}
+
+build.dependsOn(copyToLib, copyInstaller1, copyInstaller2, copyInstaller3, copyInstaller4)

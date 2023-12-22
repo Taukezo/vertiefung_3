@@ -6,12 +6,16 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 public class ConfigurationModel {
     @XStreamAlias("rootpath")
     private String rootPath = "";
+    @XStreamAlias("reportpath")
+    private String reportPath = "";
     @XStreamAlias("indexdirectory")
     private String indexDirectory = "";
     @XStreamAlias("numberofcycles")
     private int numberOfCycles = 0;
     @XStreamAlias("numberofsimplethreads")
     private int numberOfSimpleThreads = 0;
+    @XStreamAlias("calculatecyclesfrom")
+    private int calculateCyclesFrom = 1;
 
 
     public String getRootPath() {
@@ -44,5 +48,21 @@ public class ConfigurationModel {
 
     public void setNumberOfSimpleThreads(int numberOfSimpleThreads) {
         this.numberOfSimpleThreads = numberOfSimpleThreads;
+    }
+
+    public String getReportPath() {
+        return reportPath;
+    }
+
+    public void setReportPath(String reportPath) {
+        this.reportPath = reportPath;
+    }
+
+    public int getCalculateCyclesFrom() {
+        return calculateCyclesFrom;
+    }
+
+    public void setCalculateCyclesFrom(int calculateCyclesFrom) {
+        this.calculateCyclesFrom = calculateCyclesFrom;
     }
 }
