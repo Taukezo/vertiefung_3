@@ -19,6 +19,6 @@ public class CallableIndexer implements Callable<CallableIndexerResult> {
 
     @Override
     public CallableIndexerResult call() throws Exception {
-        return (new CallableIndexerResult("xxx", documentHandler.getDocument(file)));
+        return (new CallableIndexerResult(Thread.currentThread().getName(), documentHandler.getDocument(file)));
     }
 }

@@ -10,6 +10,8 @@ import org.aulich.wbh.vertiefung_3.report.ReportThread;
 import org.aulich.wbh.vertiefung_3.utils.FileFiFoStack;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.*;
 
 public class RunThreadPool extends BaseProgram {
@@ -33,7 +35,7 @@ public class RunThreadPool extends BaseProgram {
 
     @Override
     public void doOnce() throws Exception {
-// Get new IndexWriter and cleanup the filesystem at the configured position
+        // Get new IndexWriter and cleanup the filesystem at the configured position
         IndexWriter indexWriter = this.getIndexWriterNewIndex();
 
         // Create instance to a document helper
@@ -41,6 +43,9 @@ public class RunThreadPool extends BaseProgram {
 
         // Create a queue for all the document to process
         FileFiFoStack myQueue = new FileFiFoStack(new File(this.getCfgM().getRootPath()));
+
+        // Create a Map for all ThreadResults
+        Map<String, Integer> threadMap = new HashMap<String, Integer>();
 
         final ExecutorService executorService = Executors.newFixedThreadPool(this.getCfgM().getNumberOfSimpleThreads());
         final CompletionService<CallableIndexerResult> completionService = new ExecutorCompletionService<>(executorService);
@@ -54,20 +59,27 @@ public class RunThreadPool extends BaseProgram {
         }
 
         // Collect all results from CompletionService
-        for(int i = 0; i < totalTasks; ++i) {
+        for (int i = 0; i < totalTasks; ++i) {
 
             try {
                 final Future<CallableIndexerResult> value = completionService.take();
-                System.out.println("received value: " + value.get());
+                CallableIndexerResult indexerResult = value.get();
+                indexWriter.addDocument(indexerResult.getDocument());
+                // Add file to the counter of this thread
+                threadMap.merge(indexerResult.getName(), 1, Integer::sum);
             } catch (ExecutionException e) {
                 logger.error("Error while processing task. ", e);
             } catch (InterruptedException e) {
                 logger.error("interrupted while waiting for result", e);
             }
         }
-
+        executorService.shutdown();
+        indexWriter.close();
         this.setNumberOfFiles(totalTasks);
         this.getReport().getReportModel().setThreads(this.getCfgM().getNumberOfSimpleThreads());
-        this.addReportThread(new ReportThread(Thread.currentThread().getName(), 1));
+        // Add Threadinformation to report cycle
+        for (Map.Entry<String, Integer> entry : threadMap.entrySet()) {
+            this.addReportThread(new ReportThread(entry.getKey(), entry.getValue()));
+        }
     }
 }

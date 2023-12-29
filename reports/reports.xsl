@@ -96,7 +96,7 @@
                                     <xsl:for-each select="reportthreads/reportthread">
                                         <tr>
                                             <td>
-                                                <xsl:value-of select="name"/>
+                                                <xsl:value-of select="name"/>:
                                             </td>
                                             <td>
                                                 <xsl:value-of select="numberoffiles"/>
