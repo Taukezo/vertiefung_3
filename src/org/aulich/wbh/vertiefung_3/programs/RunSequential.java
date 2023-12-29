@@ -4,6 +4,7 @@ import org.apache.lucene.index.IndexWriter;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 import org.aulich.wbh.vertiefung_3.indexing.DocumentHandler;
+import org.aulich.wbh.vertiefung_3.report.ReportThread;
 import org.aulich.wbh.vertiefung_3.utils.*;
 
 import java.io.File;
@@ -56,7 +57,9 @@ public class RunSequential extends BaseProgram implements ProgramInterface {
             i++;
         }
         logger.debug("That's it, number of files: " + i);
-        this.setNumberOfFiles(myQueue.getNumberOfFiles());
+        this.setNumberOfFiles(i);
+        this.getReport().getReportModel().setThreads(1);
+        this.addReportThread(new ReportThread(Thread.currentThread().getName(), i));
         indexWriter.close();
     }
 }

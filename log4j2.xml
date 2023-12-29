@@ -6,21 +6,21 @@
     </Properties>
     <Appenders>
         <Console name="Console" target="SYSTEM_OUT">
-            <!-- <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/> -->
-            <PatternLayout pattern="[%threadName] %-5level %logger{36} - %message{nolookups}%xThrowable{separator(|)}%n"/>
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n"/>
         </Console>
         <RollingFile name="rollingFile" fileName="${logPath}/${rollingFileName}.log" filePattern="${logPath}/${rollingFileName}_%d{yyyy-MM-dd}.log">
             <PatternLayout pattern="[%t] [%highlight{%-5level}] %d{DEFAULT} %c{1}.%M() - %msg%n%throwable{short.lineNumber}" />
+            <!-- <PatternLayout pattern="%level;%d{yyyy-MM-dd HH:mm:ss.SSS};%t;%c;%enc{%msg}{CRLF} - %xEx" /> -->
             <Policies>
                 <TimeBasedTriggeringPolicy interval="1" modulate="true" />
             </Policies>
         </RollingFile>
     </Appenders>
     <Loggers>
-        <Root level="error">
+        <Root level="debug">
             <AppenderRef ref="Console"/>
         </Root>
-        <Logger name="org.aulich.wbh" additivity="false" level="warn">
+        <Logger name="org.aulich.wbh" additivity="false" level="debug">
             <AppenderRef ref="rollingFile" />
         </Logger>
     </Loggers>

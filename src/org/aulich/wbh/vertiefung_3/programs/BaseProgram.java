@@ -14,6 +14,7 @@ import org.aulich.wbh.vertiefung_3.report.ReportThread;
 import org.aulich.wbh.vertiefung_3.utils.FileUtils;
 
 import java.io.File;
+import java.net.InetAddress;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Date;
@@ -36,6 +37,7 @@ public class BaseProgram implements ProgramInterface {
         report.getReportModel().setCycles(cfgM.getNumberOfCycles());
         report.getReportModel().setThreads(cfgM.getNumberOfSimpleThreads());
         report.getReportModel().setCalculateCyclesFrom(cfgM.getCalculateCyclesFrom());
+        report.getReportModel().setSystemName(getSystemName());
     }
 
     public IndexWriter getIndexWriterNewIndex() throws Exception {
@@ -109,5 +111,13 @@ public class BaseProgram implements ProgramInterface {
 
     public synchronized void addReportThread(ReportThread reportThread) {
         report.getReportModel().getCycle(actualCycle).getReportThreads().add(reportThread);
+    }
+
+    private String getSystemName() {
+        try {
+            return InetAddress.getLocalHost().getHostName();
+        } catch (Exception E) {
+            return "Unknown System";
+        }
     }
 }

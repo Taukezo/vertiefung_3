@@ -10,6 +10,8 @@ import java.util.Date;
 public class ReportModel {
     @XStreamAlias("classname")
     private String className;
+    @XStreamAlias("systemname")
+    private String systemName;
     private Date date;
     private int cycles;
     private int threads;
@@ -22,6 +24,10 @@ public class ReportModel {
     private BigDecimal durationAverage;
     @XStreamAlias("durationstandarddeviation")
     private BigDecimal durationStandardDeviation;
+    @XStreamAlias("threadfilesaverage")
+    private BigDecimal threadFilesAverage;
+    @XStreamAlias("threadfilesstandarddeviation")
+    private BigDecimal threadFilesStandardDeviation;
 
     public String getClassName() {
         return className;
@@ -29,6 +35,14 @@ public class ReportModel {
 
     public void setClassName(String className) {
         this.className = className;
+    }
+
+    public String getSystemName() {
+        return systemName;
+    }
+
+    public void setSystemName(String systemName) {
+        this.systemName = systemName;
     }
 
     public Date getDate() {
@@ -69,6 +83,22 @@ public class ReportModel {
 
     public void setDurationStandardDeviation(BigDecimal durationStandardDeviation) {
         this.durationStandardDeviation = durationStandardDeviation;
+    }
+
+    public BigDecimal getThreadFilesAverage() {
+        return threadFilesAverage;
+    }
+
+    public void setThreadFilesAverage(BigDecimal threadFilesAverage) {
+        this.threadFilesAverage = threadFilesAverage;
+    }
+
+    public BigDecimal getThreadFilesStandardDeviation() {
+        return threadFilesStandardDeviation;
+    }
+
+    public void setThreadFilesStandardDeviation(BigDecimal threadFilesStandardDeviation) {
+        this.threadFilesStandardDeviation = threadFilesStandardDeviation;
     }
 
     public List<ReportCycle> getReportCycles() {
