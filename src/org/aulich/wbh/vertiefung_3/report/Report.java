@@ -32,8 +32,11 @@ public class Report {
         Date date = reportModel.getDate();
         DateFormat df = new SimpleDateFormat(fileNamePattern);
         String fileName = reportModel.getSystemName() + "-" + reportModel.getClassName() + "-" + df.format(date) + ".xml";
-        File configurationFile =
+        /* File configurationFile =
                 new File(Configuration.getConfiguration().getConfigurationModel().getReportPath()
+                        + File.separator + fileName); */
+        File configurationFile =
+                new File("reports"
                         + File.separator + fileName);
         XStream xStream = new XStream();
         xStream.processAnnotations(Report.class);

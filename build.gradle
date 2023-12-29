@@ -33,7 +33,10 @@ task copyToLib(type: Copy) {
 task copyInstaller1(type: Copy) {
     from ("Configuration.xml",
             "log4j2.xml",
-            "start_RunSequential.bat")
+            "start_RunSequential.bat",
+            "start_RunSimpleThread.bat",
+            "start_RunSimpleThreadExtended.bat",
+            "start_RunThreadPool.bat")
     into "$buildDir/installer"
 }
 
