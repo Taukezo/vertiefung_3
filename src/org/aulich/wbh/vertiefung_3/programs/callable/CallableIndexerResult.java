@@ -1,4 +1,4 @@
-package org.aulich.wbh.vertiefung_3.programs.threadpool;
+package org.aulich.wbh.vertiefung_3.programs.callable;
 
 import org.apache.lucene.document.Document;
 

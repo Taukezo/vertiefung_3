@@ -4,8 +4,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.lucene.index.IndexWriter;
 import org.aulich.wbh.vertiefung_3.indexing.DocumentHandler;
-import org.aulich.wbh.vertiefung_3.programs.threadpool.CallableIndexer;
-import org.aulich.wbh.vertiefung_3.programs.threadpool.CallableIndexerResult;
+import org.aulich.wbh.vertiefung_3.programs.callable.CallableIndexer;
+import org.aulich.wbh.vertiefung_3.programs.callable.CallableIndexerResult;
 import org.aulich.wbh.vertiefung_3.report.ReportThread;
 import org.aulich.wbh.vertiefung_3.utils.FileFiFoStack;
 

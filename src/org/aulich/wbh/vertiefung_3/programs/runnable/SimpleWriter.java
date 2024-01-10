@@ -1,4 +1,4 @@
-package org.aulich.wbh.vertiefung_3.programs.simplethread;
+package org.aulich.wbh.vertiefung_3.programs.runnable;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

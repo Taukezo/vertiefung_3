@@ -3,8 +3,7 @@ package org.aulich.wbh.vertiefung_3.programs;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.lucene.index.IndexWriter;
-import org.aulich.wbh.vertiefung_3.programs.simplethread.SimpleIndexer;
-import org.aulich.wbh.vertiefung_3.report.ReportThread;
+import org.aulich.wbh.vertiefung_3.programs.runnable.SimpleIndexer;
 import org.aulich.wbh.vertiefung_3.utils.FileFiFoStack;
 
 import java.io.File;

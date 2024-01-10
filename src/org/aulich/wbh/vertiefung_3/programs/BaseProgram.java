@@ -19,10 +19,9 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.Date;
 
-public class BaseProgram implements ProgramInterface {
+public abstract class BaseProgram {
     private static final Logger logger = LogManager.getLogger(BaseProgram.class);
     private ConfigurationModel cfgM;
-    private IndexWriter indexWriter;
 
     private int numberOfFiles;
 
@@ -62,12 +61,8 @@ public class BaseProgram implements ProgramInterface {
         this.cfgM = cfgM;
     }
 
-    @Override
-    public void doOnce() throws Exception {
-        // TODO Has to be overridden in subclasses ...
-    }
+    public abstract void doOnce() throws Exception;
 
-    @Override
     public void doAll() throws Exception {
         int numberOfCycles = this.getCfgM().getNumberOfCycles();
         for (actualCycle = 1; actualCycle <= numberOfCycles; actualCycle++) {
@@ -91,14 +86,6 @@ public class BaseProgram implements ProgramInterface {
 
     public void setReport(Report report) {
         this.report = report;
-    }
-
-    public IndexWriter getIndexWriter() {
-        return indexWriter;
-    }
-
-    public void setIndexWriter(IndexWriter indexWriter) {
-        this.indexWriter = indexWriter;
     }
 
     public int getNumberOfFiles() {

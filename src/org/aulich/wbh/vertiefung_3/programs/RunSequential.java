@@ -16,7 +16,7 @@ import java.io.IOException;
  * @author Thomas Aulich
  * @version 1.0
  */
-public class RunSequential extends BaseProgram implements ProgramInterface {
+public class RunSequential extends BaseProgram {
     private static final Logger logger = LogManager.getLogger(RunSequential.class);
 
 
